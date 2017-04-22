@@ -14,7 +14,11 @@ var situations = {
     "grow": {
         desc: "Grow time",
         hint: "Tap on world to upgrade your world",
-    },  
+    },
+    "rest": {
+        desc: "Rest time!",
+        hint: "Keep your planet alive!"
+    },
 };
 
 module.exports = situations;

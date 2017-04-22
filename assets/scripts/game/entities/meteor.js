@@ -48,7 +48,6 @@ cc.Class({
     },
     
     onCollisionEnter: function (other) {
-        cc.log(other);
         if (other.node.group == "player") {
             this.node.destroy();
             gameEvents.emit("worldHit");

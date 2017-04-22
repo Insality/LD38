@@ -11,23 +11,11 @@ cc.Class({
         power: 0,
         
         spawnMeteorTime: 0,
-        
-        gameRoot: {
-            type: cc.Node,
-            default: null
-        },
-        meteorPrefab: {
-            type: cc.Prefab,
-            default: null
-        },
-        invaderPrefab: {
-            type: cc.Prefab,
-            default: null
-        },
-        ufoPrefab: {
-            type: cc.Prefab,
-            default: null
-        },
+        gameRoot: cc.Node,
+        anim: cc.Animation,
+        meteorPrefab: cc.Prefab,
+        invaderPrefab: cc.Prefab,
+        ufoPrefab: cc.Prefab
     },
 
     init: function() {
@@ -39,18 +27,21 @@ cc.Class({
             this.power++;
             this.updateUI();
         }, this);
+        
         gameEvents.on("meteorDestroy", function() {
-            cc.log("meteorDestroy");
         }, this);
+        
         gameEvents.on("worldHit", function() {
-            cc.log("worldHit");
             this.health -= 4;
-            cc.log(this.health);
         }, this);
+        
+        this.initLevel();
     },
 
-    setSituation: function(situation) {
-        this.currentSituation = situation;
+    setSituation: function(situation, nextTimer) {
+        this.currentSituationName = situation
+        this.currentSituation = situations[this.currentSituationName];
+        this.anim.play("changeSituation");
         this.updateUI();
     },
 
@@ -60,14 +51,49 @@ cc.Class({
         this.gameUI.setPower(this.power);
         
     },
+    
+    _addLevel: function(type, time) {
+        this.situationsRow.push({type: type, time: time});  
+    },
+
+    initLevel: function() {
+        this.nextSituationTimer = 0;
+        this.situationsRow = [];
+        this._addLevel("rest", 5);
+        this._addLevel("meteorits", 20);
+        this._addLevel("rest", 5);
+        this._addLevel("meteorits", 30);
+        this._addLevel("rest", 5);
+    };
 
     onLoad: function () {
         this.init();
-        this.setSituation(situations["grow"]);
+        
     },
 
     update: function (dt) {
-        this.processMeteorites(dt);
+        if (this.nextSituationTimer >= 0) {
+            this.nextSituationTimer -= dt;
+            if (this.nextSituationTimer < 0 && this.situationsRow.length > 0) {
+                var nextSituation = this.situationsRow.shift();
+                
+                this.setSituation(nextSituation.type);
+                this.nextSituationTimer = nextSituation.time;
+                
+            }
+        }
+        
+        if (this.currentSituation) {
+            switch (this.currentSituationName) {
+                case "grow":
+                    break;
+                case "meteorits":
+                    this.processMeteorites(dt);
+                    break;
+                default: 
+                    break;    
+            }
+        }
     },
     
     processMeteorites: function(dt) {
@@ -76,7 +102,6 @@ cc.Class({
             this.spawnMeteorTime = cc.clampf(0.5 - (this.difficulty/10), 0.2, 0.5) + cc.random0To1()*0.4;
             var meteor = cc.instantiate(this.meteorPrefab);
             meteor.parent = this.gameRoot;
-            //this.canvas.node.addChild(monster);
             var radius = 800;
             var angle = cc.random0To1() * Math.PI*2;
             meteor.position = cc.p(radius * Math.cos(angle), radius * Math.sin(angle));
