@@ -11,6 +11,10 @@ cc.Class({
         cc.macro.SPRITEBATCHNODE_RENDER_SUBPIXEL = 0;
         cc.macro.CC_FIX_ARTIFACTS_BY_STRECHING_TEXEL = 1;
         cc.director.setProjection(cc.Director.PROJECTION_2D);
+        
+        var resolution = cc.ResolutionPolicy.SHOW_ALL;
+        cc.view.setDesignResolutionSize(1280, 720, resolution);
+        cc.view.resizeWithBrowserSize(true);
     },
 
     // called every frame, uncomment this function to activate update callback

@@ -22,9 +22,4 @@ cc.Class({
             }
         }
     },
-    
-    onCollisionEnter: function (other) {
-        cc.log(other);
-        // this.node.color = cc.Color.RED;
-    },
 });

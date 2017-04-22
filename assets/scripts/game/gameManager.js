@@ -6,11 +6,34 @@ cc.Class({
 
     properties: {
         gameUI: cc.Node,
+        difficulty: 1,
+        health: 20,
         power: 0,
+        
+        spawnMeteorTime: 0,
+        
+        gameRoot: {
+            type: cc.Node,
+            default: null
+        },
+        meteorPrefab: {
+            type: cc.Prefab,
+            default: null
+        },
+        invaderPrefab: {
+            type: cc.Prefab,
+            default: null
+        },
+        ufoPrefab: {
+            type: cc.Prefab,
+            default: null
+        },
     },
 
     init: function() {
         cc.director.getCollisionManager().enabled = true;
+        cc.director.getCollisionManager().enabledDebugDraw = true;
+        
         this.gameUI = this.gameUI.getComponent('gameGUIDisplay');  
         gameEvents.on("worldGrow", function(e) {
             this.power++;
@@ -21,6 +44,8 @@ cc.Class({
         }, this);
         gameEvents.on("worldHit", function() {
             cc.log("worldHit");
+            this.health -= 4;
+            cc.log(this.health);
         }, this);
     },
 
@@ -36,14 +61,26 @@ cc.Class({
         
     },
 
-    // use this for initialization
     onLoad: function () {
         this.init();
         this.setSituation(situations["grow"]);
     },
 
-    // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-
-    // },
+    update: function (dt) {
+        this.processMeteorites(dt);
+    },
+    
+    processMeteorites: function(dt) {
+        this.spawnMeteorTime -= dt;
+        if (this.spawnMeteorTime < 0) {
+            this.spawnMeteorTime = cc.clampf(0.5 - (this.difficulty/10), 0.2, 0.5) + cc.random0To1()*0.4;
+            var meteor = cc.instantiate(this.meteorPrefab);
+            meteor.parent = this.gameRoot;
+            //this.canvas.node.addChild(monster);
+            var radius = 800;
+            var angle = cc.random0To1() * Math.PI*2;
+            meteor.position = cc.p(radius * Math.cos(angle), radius * Math.sin(angle));
+            meteor.getComponent("meteor").updateSpeed();
+        }
+    },
 });
