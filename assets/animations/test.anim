@@ -1,0 +1,46 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "test",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.47,
+  "sample": 60,
+  "speed": 1,
+  "wrapMode": 1,
+  "curveData": {
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            -459,
+            0
+          ],
+          "curve": "cubicOut"
+        },
+        {
+          "frame": 1.4666666666666666,
+          "value": [
+            -153,
+            0
+          ]
+        }
+      ],
+      "rotation": [
+        {
+          "frame": 0,
+          "value": -2
+        },
+        {
+          "frame": 0.55,
+          "value": -49
+        },
+        {
+          "frame": 1.45,
+          "value": 2
+        }
+      ]
+    }
+  },
+  "events": []
+}
