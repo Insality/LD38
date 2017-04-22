@@ -27,7 +27,6 @@ cc.Class({
     },
     
     onDisable: function() {
-        console.log("TEST");
         cc.audioEngine.stopMusic();
     },
     

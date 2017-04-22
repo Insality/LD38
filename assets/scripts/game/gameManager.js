@@ -1,45 +1,45 @@
+var gameEvents = require("gameEvents");
+var situations = require("situations");
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //    default: null,      // The default value will be used only when the component attaching
-        //                           to a node for the first time
-        //    url: cc.Texture2D,  // optional, default is typeof default
-        //    serializable: true, // optional, default is true
-        //    visible: true,      // optional, default is true
-        //    displayName: 'Foo', // optional
-        //    readonly: false,    // optional, default is false
-        // },
-        // ...
+        gameUI: cc.Node,
+        power: 0,
     },
 
-    situations: [
-        {
-            type: "meteorits",
-            desc: "Meteorits incoming!",
-            hint: "Tap to meteriots to destroy them"
-        },  
-        {
-            type: "lasers",
-            desc: "UFO want to destroy your world!",
-            hint: "Move world to evade lasers"
-        },  
-        {
-            type: "invaders",
-            desc: "Invaders incoming!",
-            hint: "Avoid from invaders"
-        },  
-        {
-            type: "grow",
-            desc: "Grow time",
-            hint: "Tap on world to upgrade your world",
-        },  
-    ],
+    init: function() {
+        cc.director.getCollisionManager().enabled = true;
+        this.gameUI = this.gameUI.getComponent('gameGUIDisplay');  
+        gameEvents.on("worldGrow", function(e) {
+            this.power++;
+            this.updateUI();
+        }, this);
+        gameEvents.on("meteorDestroy", function() {
+            cc.log("meteorDestroy");
+        }, this);
+        gameEvents.on("worldHit", function() {
+            cc.log("worldHit");
+        }, this);
+    },
+
+    setSituation: function(situation) {
+        this.currentSituation = situation;
+        this.updateUI();
+    },
+
+    updateUI: function() {
+        this.gameUI.setDesc(this.currentSituation.desc);
+        this.gameUI.setHint(this.currentSituation.hint);
+        this.gameUI.setPower(this.power);
+        
+    },
 
     // use this for initialization
     onLoad: function () {
-        this.currentSituation = false;
+        this.init();
+        this.setSituation(situations["grow"]);
     },
 
     // called every frame, uncomment this function to activate update callback

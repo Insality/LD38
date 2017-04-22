@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "3903701c-d6f0-4cae-9478-ee862f1adec0",
+  "uuid": "ecd3af72-15dd-405c-89b5-970fe91ab785",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
-    "spaceMeteors_001": {
+    "meteorit (2)": {
       "ver": "1.0.3",
-      "uuid": "bffc8935-a0c6-45f1-9293-c6d24ecb89f6",
-      "rawTextureUuid": "3903701c-d6f0-4cae-9478-ee862f1adec0",
+      "uuid": "8601bd43-b5a8-424b-b459-7e2fe258fd9a",
+      "rawTextureUuid": "ecd3af72-15dd-405c-89b5-970fe91ab785",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 215,
-      "height": 211,
-      "rawWidth": 215,
-      "rawHeight": 211,
+      "width": 106,
+      "height": 109,
+      "rawWidth": 106,
+      "rawHeight": 109,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
