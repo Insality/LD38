@@ -9,7 +9,8 @@ cc.Class({
         spriteList: {
             default: [],
             type: [cc.SpriteFrame]
-        }
+        },
+        explodeParticle: cc.Prefab,
     },
 
     // use this for initialization
@@ -22,8 +23,14 @@ cc.Class({
         
         var inputControl = this.getComponent('inputControl');
         if (inputControl) {
+            var self = this;
             inputControl.onClick = function () {
                 gameEvents.emit("meteorDestroy");
+                
+                var particle = cc.instantiate(self.explodeParticle);
+                particle.parent = this.node.parent;
+                particle.position = cc.p(this.node.x, this.node.y);
+            
                 this.node.destroy();
             }
         }
@@ -50,6 +57,10 @@ cc.Class({
     
     onCollisionEnter: function (other) {
         if (other.node.group == "player") {
+            var particle = cc.instantiate(this.explodeParticle);
+            particle.parent = this.node.parent;
+            particle.position = cc.p(this.node.x, this.node.y);
+            
             this.node.destroy();
             gameEvents.emit("worldHit");
         }

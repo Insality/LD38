@@ -7,7 +7,7 @@ cc.Class({
     properties: {
         gameUI: cc.Node,
         difficulty: 0,
-        health: 20,
+        health: 5,
         power: 0,
         
         world: cc.Node,
@@ -30,6 +30,11 @@ cc.Class({
         
         if (situation !== "rest") {
             this.power += 50;
+            this.gameUI.emitPower(50, this.gameRoot, cc.p(0, 0));
+        }
+        if (situation == "grow") {
+            this.difficulty++;
+            this.applyLevels();
         }
         
         
@@ -45,14 +50,17 @@ cc.Class({
         this.situationsRow.push({type: type, time: time});  
     },
 
-    initLevel: function() {
+    applyLevels: function() {
         this.nextSituationTimer = 0;
         this.situationsRow = [];
-        this._addLevel("rest", 1);
-        this._addLevel("grow", 20);
         this._addLevel("rest", 5);
-        this._addLevel("meteorits", 30);
+        this._addLevel("meteorits", 20);
         this._addLevel("rest", 5);
+        this._addLevel("invaders", 20);
+        this._addLevel("rest", 5);
+        this._addLevel("lasers", 20);
+        this._addLevel("rest", 5);
+        this._addLevel("grow", 5);
     },
 
     onLoad: function () {
@@ -64,18 +72,38 @@ cc.Class({
         gameEvents.on("worldGrow", function(e) {
             if (this.currentSituationName == "grow") {
                 this.power += 10;
+                this.gameUI.emitPower(10, this.gameRoot, cc.p(0, 0));
             }
         }, this);
         
         gameEvents.on("meteorDestroy", function() {
             this.power += 5;
+            this.gameUI.emitPower(5, this.gameRoot, cc.p(0, 0));
         }, this);
         
         gameEvents.on("worldHit", function() {
-            this.health -= 4;
+            this.health -= 1;
+            this.gameUI.setLives(this.health);
+            this.checkEndGame();
         }, this);
         
-        this.initLevel();
+        this.applyLevels();
+        this.gameUI.setLives(this.health);
+    },
+
+    checkEndGame: function() {
+        if (this.health <= 0) {
+            // lose
+            var highscore = parseInt(cc.sys.localStorage["highscore"]);
+            if (!highscore) highscore = 0;
+            var highscore = Math.max(highscore, this.power);
+            
+            cc.sys.localStorage["highscore"] = highscore;
+            cc.sys.localStorage["lastScore"] = this.power;
+            
+            // show end game screen?
+            cc.director.loadScene("GameEndScene"); 
+        }
     },
 
     update: function (dt) {
@@ -117,7 +145,7 @@ cc.Class({
     processMeteorites: function(dt) {
         this.spawnMeteorTime -= dt;
         if (this.spawnMeteorTime < 0) {
-            this.spawnMeteorTime = cc.clampf(0.5 - (this.difficulty/10), 0.2, 0.5) + cc.random0To1()*0.4;
+            this.spawnMeteorTime = cc.clampf(0.5 - (this.difficulty/10), 0.1, 0.5) + cc.random0To1()*0.4;
             var meteor = cc.instantiate(this.meteorPrefab);
             meteor.parent = this.gameRoot;
             var radius = 800;
@@ -130,7 +158,7 @@ cc.Class({
     processInvaders: function(dt) {
         this.spawnInvadersTime -= dt;
         if (this.spawnInvadersTime < 0) {
-            this.spawnInvadersTime = 1;
+            this.spawnInvadersTime = cc.clampf(1 - this.difficulty/10, 0.1, 1);
             var invader = cc.instantiate(this.invaderPrefab);
             invader.parent = this.gameRoot;
             invader.position = cc.p(800, cc.randomMinus1To1()*200);
@@ -140,10 +168,10 @@ cc.Class({
     processEnemyUfo: function(dt) {
         this.spawnEnemyUfoTime -= dt;
         if (this.spawnEnemyUfoTime < 0) {
-            this.spawnEnemyUfoTime = 6;
+            this.spawnEnemyUfoTime = cc.clampf(6-this.difficulty, 2, 6);
             var enemyUfo = cc.instantiate(this.ufoPrefab);
             enemyUfo.parent = this.gameRoot;
-            enemyUfo.position = cc.p(900, 175);
+            enemyUfo.position = cc.p(1200, 175);
         }
     },
 });

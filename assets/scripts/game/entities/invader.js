@@ -20,13 +20,11 @@ cc.Class({
         var randomIdx = utils.getRandomInt(0, this.spriteList.length);
         var sprite = this.getComponent(cc.Sprite);
         sprite.spriteFrame = this.spriteList[randomIdx];
-        
-        
     },
 
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
-        this.node.x -= 6;
+        this.node.x -= 500*dt;
     },
     
     onCollisionEnter: function (other) {

@@ -1,3 +1,5 @@
+var gameEvents = require("gameEvents");
+
 cc.Class({
     extends: cc.Component,
 
@@ -26,5 +28,11 @@ cc.Class({
         }
         this.collider.size.height = this.node.height;
         this.collider.offset.y = -this.node.height/2
+    },
+    
+    onCollisionEnter: function (other) {
+        if (other.node.group == "player") {
+            gameEvents.emit("worldHit");
+        }
     },
 });

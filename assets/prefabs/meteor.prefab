@@ -133,7 +133,10 @@
       {
         "__uuid__": "dbd23cfc-8869-4839-b570-aef8f2ef2549"
       }
-    ]
+    ],
+    "explodeParticle": {
+      "__uuid__": "9668f1ca-a806-434b-b53e-c23fde6d1e07"
+    }
   },
   {
     "__type__": "b7cf5bUQBxOqrRMqPR4/qlj",

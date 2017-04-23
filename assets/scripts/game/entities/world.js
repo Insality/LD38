@@ -19,11 +19,13 @@ cc.Class({
         var inputControl = this.getComponent('inputControl');
         if (inputControl) {
             inputControl.onClick = function () {
-                gameEvents.emit("worldGrow");
-                this.node.runAction(cc.sequence(
-                    cc.scaleTo(0.05, 1.2, 1.2),
-                    cc.scaleTo(0.05, 1, 1)
-                ));
+                if (self.mode == "grow") {
+                    gameEvents.emit("worldGrow");
+                    this.node.runAction(cc.sequence(
+                        cc.scaleTo(0.05, 1.2, 1.2),
+                        cc.scaleTo(0.05, 1, 1)
+                    ));
+                }
             }
             inputControl.onDrag = function(delta) {
                 if (self.mode == "invaders") {
