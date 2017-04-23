@@ -1,19 +1,19 @@
 var situations = {
     "meteorits": {
         desc: "Meteorits incoming!",
-        hint: "Tap to meteriots to destroy them"
+        hint: "Tap on meteriots to destroy them"
     },  
     "lasers": {
-        desc: "UFO want to destroy your world!",
-        hint: "Move world to evade lasers"
+        desc: "UFO here!",
+        hint: "Drag your planet to evade lasers"
     },  
     "invaders": {
         desc: "Invaders incoming!",
-        hint: "Avoid from invaders"
+        hint: "Drag your planet to avoid invaders!"
     },  
     "grow": {
         desc: "Grow time",
-        hint: "Tap on world to upgrade your world",
+        hint: "Fast tap on planet to upgrade it",
     },
     "rest": {
         desc: "Rest time!",

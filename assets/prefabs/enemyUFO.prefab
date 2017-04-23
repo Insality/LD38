@@ -96,7 +96,10 @@
     "node": {
       "__id__": 1
     },
-    "_enabled": true
+    "_enabled": true,
+    "projectile": {
+      "__uuid__": "99861c28-e353-4d77-b070-18ea0d72b700"
+    }
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -104,7 +107,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "27c98a11-e5b5-4529-ad50-c2c262ca3f27"
     },
     "fileId": "da9961wO/tCXJweIyQcgROx",
     "sync": false

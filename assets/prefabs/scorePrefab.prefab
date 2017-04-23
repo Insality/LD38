@@ -10,7 +10,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "enemyLaser",
+    "_name": "scorePrefab",
     "_objFlags": 0,
     "_opacity": 255,
     "_color": {
@@ -25,12 +25,12 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 1
+      "y": 0.5
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 56,
-      "height": 50
+      "width": 85.18,
+      "height": 60
     },
     "_children": [],
     "_rotationX": 0,
@@ -39,8 +39,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 477,
-      "y": 244
+      "x": -389,
+      "y": -21
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -56,71 +56,52 @@
       },
       {
         "__id__": 3
-      },
-      {
-        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 5
+      "__id__": 4
     },
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Sprite",
+    "__type__": "cc.Label",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "_spriteFrame": {
-      "__uuid__": "c94de8e9-c7b0-4d1e-8057-c78b4ce20f4a"
+    "_useOriginalSize": false,
+    "_actualFontSize": 60,
+    "_fontSize": 60,
+    "_lineHeight": 60,
+    "_enableWrapText": true,
+    "_N$file": {
+      "__uuid__": "c411c6d1-e97b-4a59-a8f0-eff60cb44840"
     },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_atlas": null
+    "_isSystemFontUsed": false,
+    "_spacingX": 0,
+    "_N$string": "+20",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$overflow": 0
   },
   {
-    "__type__": "04aaf+GqcNAf5FUVk3pZpj3",
+    "__type__": "cc.LabelOutline",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "updateTimer": 0.1
-  },
-  {
-    "__type__": "cc.BoxCollider",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 0,
+      "g": 0,
+      "b": 0,
+      "a": 255
     },
-    "_enabled": true,
-    "tag": 0,
-    "_offset": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": -25
-    },
-    "_size": {
-      "__type__": "cc.Size",
-      "width": 43,
-      "height": 50
-    }
+    "_width": 2
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -128,9 +109,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "99861c28-e353-4d77-b070-18ea0d72b700"
+      "__id__": 0
     },
-    "fileId": "cfb14Di9oRHVbphUDyzZmDf",
+    "fileId": "526fcvWDuJCno9HAx/YR9FU",
     "sync": false
   }
 ]

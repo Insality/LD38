@@ -5,6 +5,7 @@ cc.Class({
         hintUI: cc.Label,
         descUI: cc.Label,
         powerUI: cc.Label,
+        scorePrefab: cc.Prefab,
     },
 
     setDesc: function(desc) {

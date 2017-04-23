@@ -1,4 +1,5 @@
 var utils = require("Utils");
+var gameEvents = require("gameEvents");
 
 cc.Class({
     extends: cc.Component,
@@ -24,7 +25,14 @@ cc.Class({
     },
 
     // called every frame, uncomment this function to activate update callback
-    // update: function (dt) {
-
-    // },
+    update: function (dt) {
+        this.node.x -= 6;
+    },
+    
+    onCollisionEnter: function (other) {
+        if (other.node.group == "player") {
+            this.node.destroy();
+            gameEvents.emit("worldHit");
+        }
+    },
 });

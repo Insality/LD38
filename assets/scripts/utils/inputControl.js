@@ -14,13 +14,24 @@ cc.Class({
         // ...
     },
 
-    _callback: null,
+    onClick: null,
+    onDrag: null,
     
     // use this for initialization
     onLoad: function () {
         this.node.on(cc.Node.EventType.TOUCH_END, function() {
-            if (this._callback) {
-                this._callback();
+            if (this.onClick) {
+                this.onClick();
+            } 
+        }, this);
+        
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, function(event) {
+            if (this.onDrag) {
+                var target = event.touch.getLocation();
+                this.onDrag(target);
+                
+                if (this.getComponent("inputControl").propagate)
+                    event.stopPropagation();
             } 
         }, this);
     },

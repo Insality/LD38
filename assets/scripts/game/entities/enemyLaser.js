@@ -19,9 +19,10 @@ cc.Class({
             this.updateTimer = 0.04;
         }
         
-        this.node.height += 10;
+        this.node.height += 30;
         if (this.node.height > 620) {
-            this.node.height = 120;
+            // this.node.height = 120;
+            this.node.destroy();
         }
         this.collider.size.height = this.node.height;
         this.collider.offset.y = -this.node.height/2

@@ -20,13 +20,14 @@ cc.Class({
         
         this.rotationSpeed = cc.randomMinus1To1() * 5;
         
-        var clickable = this.getComponent('clickable');
-        if (clickable) {
-            clickable._callback = function () {
+        var inputControl = this.getComponent('inputControl');
+        if (inputControl) {
+            inputControl.onClick = function () {
                 gameEvents.emit("meteorDestroy");
                 this.node.destroy();
             }
         }
+        
         
         this.updateSpeed();
     },
